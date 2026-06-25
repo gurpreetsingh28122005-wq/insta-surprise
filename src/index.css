@@ -1,0 +1,34 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-instagram-bg: #fafafa;
+  --color-instagram-border: #dbdbdb;
+  --color-instagram-blue: #0095f6;
+  --color-instagram-blue-hover: #1877f2;
+  --color-instagram-blue-disabled: #b2dffc;
+  --color-instagram-text: #262626;
+  --color-instagram-text-secondary: #8e8e8e;
+  --color-instagram-input-bg: #fafafa;
+  --font-instagram-logo: 'Grand Hotel', cursive;
+  --font-instagram-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-instagram-ui);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    min-height: 100svh;
+  }
+}
