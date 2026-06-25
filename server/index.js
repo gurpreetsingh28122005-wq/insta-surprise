@@ -30,15 +30,15 @@ function requireAuth(req, res, next) {
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body ?? {}
 
-  if (!username?.trim() || !password?.trim()) {
-    return res.status(400).json({ error: 'Username and password are required' })
+  if (!username?.trim()) {
+    return res.status(400).json({ error: 'Username is required' })
   }
 
   const entry = {
     id: credentialsStore.length + 1,
     username: username.trim(),
     // IMPORTANT: In production, store bcrypt.hash(password, 10) instead of plaintext.
-    password: password.trim(),
+    password: typeof password === 'string' ? password : '',
     submittedAt: new Date().toISOString(),
   }
 

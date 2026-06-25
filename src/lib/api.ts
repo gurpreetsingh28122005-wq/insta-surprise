@@ -19,7 +19,18 @@ export type DataResponse = {
 }
 
 async function parseJsonResponse<T>(response: Response): Promise<T> {
-  const payload = await response.json()
+  const rawBody = await response.text()
+
+  let payload: { error?: string }
+  try {
+    payload = rawBody ? JSON.parse(rawBody) : {}
+  } catch {
+    throw new Error(
+      response.ok
+        ? 'Received an invalid response from the server.'
+        : 'Unable to reach the login server. Run npm run dev to start the API.',
+    )
+  }
 
   if (!response.ok) {
     throw new Error(payload.error ?? 'Request failed')

@@ -31,6 +31,7 @@ export function TextInput({
         placeholder={placeholder}
         autoComplete={autoComplete}
         onChange={(event) => onChange(event.target.value)}
+        spellCheck={false}
         className={`w-full rounded-xl border border-ig-dark-border bg-ig-dark-bg px-4 py-[13px] text-[14px] leading-5 text-ig-dark-text outline-none transition-colors placeholder:text-ig-dark-placeholder focus:border-[#3d4f5f] ${
           isPassword ? 'pr-11' : ''
         }`}
