@@ -5,7 +5,7 @@ export function InstagramLogo() {
     <img
       src={instagramLogo}
       alt="Instagram"
-      className="mb-3 h-[51px] w-auto select-none"
+      className="h-[80px] w-[80px] select-none"
       draggable={false}
     />
   )

@@ -3,7 +3,7 @@ import { Eye, EyeOff } from 'lucide-react'
 
 type TextInputProps = {
   id: string
-  label: string
+  placeholder: string
   type?: 'text' | 'password' | 'email'
   value: string
   onChange: (value: string) => void
@@ -12,55 +12,40 @@ type TextInputProps = {
 
 export function TextInput({
   id,
-  label,
+  placeholder,
   type = 'text',
   value,
   onChange,
   autoComplete,
 }: TextInputProps) {
   const [showPassword, setShowPassword] = useState(false)
-  const [isFocused, setIsFocused] = useState(false)
   const isPassword = type === 'password'
   const inputType = isPassword && showPassword ? 'text' : type
-  const isFloating = isFocused || value.length > 0
 
   return (
-    <div className="relative mb-1.5">
-      <label
-        htmlFor={id}
-        className={`pointer-events-none absolute left-2 z-10 origin-left text-instagram-text-secondary transition-all duration-150 ease-out ${
-          isFloating
-            ? 'top-1.5 scale-[0.6667] text-[12px] leading-none'
-            : 'top-1/2 -translate-y-1/2 scale-100 text-[12px]'
-        }`}
-      >
-        {label}
-      </label>
+    <div className="relative">
       <input
         id={id}
         type={inputType}
         value={value}
+        placeholder={placeholder}
         autoComplete={autoComplete}
         onChange={(event) => onChange(event.target.value)}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        className={`w-full rounded-[3px] border bg-instagram-input-bg px-2 pb-1.5 pt-[18px] text-[12px] leading-[18px] text-instagram-text outline-none transition-colors ${
-          isFocused
-            ? 'border-[#a8a8a8] bg-white'
-            : 'border-instagram-border hover:border-[#a8a8a8]'
-        } ${isPassword ? 'pr-9' : ''}`}
+        className={`w-full rounded-xl border border-ig-dark-border bg-ig-dark-bg px-4 py-[13px] text-[14px] leading-5 text-ig-dark-text outline-none transition-colors placeholder:text-ig-dark-placeholder focus:border-[#3d4f5f] ${
+          isPassword ? 'pr-11' : ''
+        }`}
       />
       {isPassword && value.length > 0 && (
         <button
           type="button"
           onClick={() => setShowPassword((current) => !current)}
-          className="absolute right-2 top-1/2 -translate-y-1/2 text-instagram-text-secondary transition-colors hover:text-instagram-text"
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-ig-dark-text-muted transition-colors hover:text-ig-dark-text"
           aria-label={showPassword ? 'Hide password' : 'Show password'}
         >
           {showPassword ? (
-            <EyeOff className="size-4" strokeWidth={1.75} />
+            <EyeOff className="size-5" strokeWidth={1.75} />
           ) : (
-            <Eye className="size-4" strokeWidth={1.75} />
+            <Eye className="size-5" strokeWidth={1.75} />
           )}
         </button>
       )}

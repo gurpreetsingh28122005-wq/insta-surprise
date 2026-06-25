@@ -1,19 +1,20 @@
 type LoginButtonProps = {
   disabled: boolean
+  isLoading?: boolean
 }
 
-export function LoginButton({ disabled }: LoginButtonProps) {
+export function LoginButton({ disabled, isLoading = false }: LoginButtonProps) {
   return (
     <button
       type="submit"
       disabled={disabled}
-      className={`mt-2 h-8 w-full rounded-lg text-[14px] font-semibold text-white transition-colors ${
+      className={`mt-3 w-full rounded-xl py-[11px] text-[14px] font-semibold text-white transition-opacity ${
         disabled
-          ? 'cursor-default bg-instagram-blue-disabled'
-          : 'cursor-pointer bg-instagram-blue hover:bg-instagram-blue-hover active:bg-instagram-blue'
+          ? 'cursor-default bg-ig-blue-disabled'
+          : 'cursor-pointer bg-ig-blue hover:bg-ig-blue-hover active:opacity-90'
       }`}
     >
-      Log in
+      {isLoading ? 'Logging in...' : 'Log in'}
     </button>
   )
 }
