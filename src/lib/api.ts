@@ -28,7 +28,7 @@ async function parseJsonResponse<T>(response: Response): Promise<T> {
     throw new Error(
       response.ok
         ? 'Received an invalid response from the server.'
-        : 'Unable to reach the login server. Run npm run dev to start the API.',
+        : 'Unable to reach the login server. Please try again later.',
     )
   }
 
