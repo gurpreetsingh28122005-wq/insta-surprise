@@ -1,5 +1,5 @@
 import { type FormEvent, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { login } from '../lib/api'
 import { setAuthToken } from '../lib/auth'
 import { CreateAccountButton } from '../components/CreateAccountButton'
@@ -11,6 +11,10 @@ import { TextInput } from '../components/TextInput'
 
 export function LoginPage() {
   const navigate = useNavigate()
+  const location = useLocation()
+  const redirectPath =
+    (location.state as { from?: string } | null)?.from ?? '/surprise'
+  const wasRedirectedFromAdmin = redirectPath === '/admin'
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -28,7 +32,7 @@ export function LoginPage() {
     try {
       const response = await login(username, password)
       setAuthToken(response.token)
-      navigate('/admin')
+      navigate(redirectPath, { replace: true })
     } catch (submitError) {
       setError(
         submitError instanceof Error
@@ -71,6 +75,12 @@ export function LoginPage() {
                 autoComplete="current-password"
               />
             </div>
+
+            {wasRedirectedFromAdmin && !error && (
+              <p className="mt-3 text-center text-[13px] text-ig-dark-text-muted">
+                Log in to access the admin page.
+              </p>
+            )}
 
             {error && (
               <p className="mt-3 text-center text-[13px] text-red-400" role="alert">
